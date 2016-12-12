@@ -1,0 +1,41 @@
+@(hostId: String, resourceId: String, userId: String, validationStatus: String)(implicit token:com.atlassian.connect.playscala.auth.Token)
+
+@import play.api.Play
+
+@defining(token.acHost.baseUrl) { baseUrl =>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta version="@utils.VersionUtils.VERSION" />
+    <meta name="pollIntervalSeconds" content="@Play.current.configuration.getString("whoslooking.poller-interval.seconds")" />
+    <meta name="avatarSize" content="@Play.current.configuration.getString("whoslooking.avatar-size")" />
+    <meta name="hostId" content="@hostId" />
+    <meta name="resourceId" content="@resourceId" />
+    <meta name="userId" content="@userId" />
+    <meta content="IE=EDGE" http-equiv="X-UA-Compatible" />
+    <meta name="hostBaseUrl" content="@baseUrl" />
+    <script type="text/javascript" src="@baseUrl/atlassian-connect/all.js"></script>    
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/main.css")" />
+    <meta name="userId" content="@userId" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/aui/5.2/css/aui.css" media="all">
+      <!--[if lt IE 9]><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/aui/5.2/css/aui-ie.css" media="all"><![endif]-->
+      <!--[if IE 9]><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/aui/5.2/css/aui-ie9.css" media="all"><![endif]-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/aui/5.2/js/aui.js"></script>
+      <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/aui/5.2/js/aui-ie.js"></script><![endif]-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/visibility.js/0.6.2/visibility.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+    <meta name="hostBaseUrl" content="@token.acHost.baseUrl" />
+  </head>
+  <body>
+    <div class="aui-message hint">
+      <p id="whoslooking-anonymous">
+        <span class="aui-icon icon-hint "></span>
+         <b>@validationStatus</b>
+      </p>
+    </div>    
+  </body>
+</html>
+}

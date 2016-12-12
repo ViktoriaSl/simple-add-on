@@ -1,0 +1,43 @@
+{
+    "key": "field-validation-addon",
+    "name": "Issue field",
+    "description": "Simple issue field validation.",
+    "vendor": {
+        "name": "Atlassian",
+        "url": "https://simple-add-on.atlassian.net"
+    },
+    "baseUrl": "https://512c836e.ngrok.io",
+    "authentication": {
+        "type": "jwt"
+    },
+    "enableLicensing": false,
+    "lifecycle": {
+        "installed": "/installed",
+        "uninstalled": "/uninstalled"
+
+    },
+    "modules": {
+        "jiraIssueFields": [
+            {
+                "description": {
+                    "value": "positive number field"
+                },
+                "type": "NUMBER",
+                "name": {
+                    "value": "positive number"
+                },
+                "key": "positive-number-field"
+            }
+        ],
+        "webPanels": [{
+            "key" : "validation-web-panel",
+            "name": {
+                "value": "Number Field Validation Panel"
+            },
+            "url": "/poller?issue_key={issue.key}",
+            "location": "atl.jira.view.issue.right.context"
+        }]
+    },
+    "scopes": ["READ"]
+}
+

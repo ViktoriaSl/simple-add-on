@@ -30,8 +30,13 @@ object Poller extends Controller with ViewerIssueValue with ActionJwtValidator w
 println("we have request : "+request)
       ( for {
         resourceId <- request.getQueryString("issue_key")
+        jwt <- request.getQueryString("jwt")
       } yield {
-        retrieveIssue(resourceId)
+        retrieveIssue(resourceId,jwt)
+  
+//     val link =   TokenCreation.tokenRequest(resourceId)
+//        println("link for request ===" + link)
+//        retrieveIssue(link)
 //        getDetails(resourceId)((Token(acHostModel, Option(UserContext("admin", Option(UserInfo("admin", "admin", "admin"))))), jwtAuthorizationGenerator))
   
 //        val future = uri(acHostModel, s"/rest/atlassian-connect/1/macro/app/" + acConfig.pluginKey).signedDelete()(Token(acHostModel, Option(UserContext("admin", Option(UserInfo("admin", "admin", "admin"))))), jwtAuthorizationGenerator)

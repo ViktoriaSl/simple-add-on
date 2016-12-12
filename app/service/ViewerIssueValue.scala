@@ -10,10 +10,11 @@ import play.Logger
 import play.api.libs.ws.WSResponse
 import scala.concurrent.ExecutionContext.Implicits.global
 import scalaz.EitherT
+import play.api.libs.ws.WSAuthScheme.BASIC
 
 trait ViewerIssueValue extends JwtSignedAcHostWS{
   def getDetails(resourceId: String)(implicit token: Token): Unit ={
-    val request = AcHostWS.uri(s"/rest/api/2/issue/$resourceId?expand=schema")(token)
+    val request = AcHostWS.uri(s"/rest/api/2/issue/$resourceId?expand=schema")
     Logger.debug(s"Making request to ${request.url} with ${request.queryString}")
     val future: Future[WSResponse] = request.signedGet()
     println("header "+request.headers)
@@ -25,9 +26,11 @@ trait ViewerIssueValue extends JwtSignedAcHostWS{
     }
   }
   
-  def retrieveIssue(issueKey: String)(implicit token: Token): Unit = {
-    val request = AcHostWS.uri(s"/rest/api/2/issue/$issueKey")
-    Logger.debug(s"Making request to ${request.url} with ${request.queryString}")
+  def retrieveIssue(issueId: String,jwt:String)(implicit token: Token): Unit = {
+    println("jwt "+jwt)
+    val request = AcHostWS.uri(s"/rest/api/2/issue/$issueId")
+
+    Logger.debug(s"Making request to ${request} ")
    request.signedGet() map { response =>
       response.status match {
         case play.api.http.Status.OK =>

@@ -16,7 +16,7 @@ object Viewers extends Controller with PageTokenValidator with ViewerDetailsServ
     Logger.debug(s"Putting $hostId/$resourceId/$userId")
 
     PageTokenValidated(allowInsecurePolling = true) { implicit token =>
-      //      InMemoryHeartBeatService.put(hostId, resourceId, userId)
+            InMemoryHeartBeatService.put(hostId, resourceId, userId)
 //      RedisHeartbeatService.put(hostId, resourceId, userId)
       val viewersWithDetails: Map[String, JsValue] = getViewersWithDetails(resourceId, hostId)
       val result = Json.toJson(viewersWithDetails)
@@ -28,7 +28,7 @@ object Viewers extends Controller with PageTokenValidator with ViewerDetailsServ
   def delete(hostId: String, resourceId: String, userId: String) = Action { implicit request =>
     PageTokenValidated { implicit token =>
       Logger.debug(s"Deleting ${hostId}/${resourceId}/${userId}")
-      //      InMemoryHeartBeatService.delete(hostId, resourceId, userId)
+            InMemoryHeartBeatService.delete(hostId, resourceId, userId)
 //      RedisHeartbeatService.delete(hostId, resourceId, userId)
       NoContent: Result // no need to add the token header as the user is leaving
     }

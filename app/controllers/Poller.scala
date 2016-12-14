@@ -18,7 +18,7 @@ object Poller extends Controller with ViewerIssueValue with ActionJwtValidator w
         resourceId <- request.getQueryString("issue_key")
       } yield {
         getIssue(resourceId)
-        //@todo
+        //@todo show message result
         Ok(views.html.validation(hostId, resourceId, "", VALIDATED_SUCCESSFULLY))
       }) getOrElse BadRequest("Missing issue key")
     }

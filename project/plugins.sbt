@@ -5,18 +5,20 @@ logLevel := Level.Warn
 
 resolvers ++= Seq(
   "atlassian-proxy-internal" at "https://m2proxy.atlassian.com/content/groups/internal/"
- ,"atlassian-proxy-public" at "https://m2proxy.atlassian.com/content/groups/public/"
- ,"atlassian-maven-public" at "http://maven.atlassian.com/content/groups/public/"
- ,"sbt-idea-repo" at "http://mpeltonen.github.com/maven/"
- ,"typesafe-maven" at "http://repo.typesafe.com/typesafe/releases/"
- ,"scct-github-repository" at "http://mtkopone.github.com/scct/maven-repo"
- ,Resolver.url("artifactory", url("http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns)
+  , "atlassian-proxy-public" at "https://m2proxy.atlassian.com/content/groups/public/"
+  , "atlassian-maven-public" at "http://maven.atlassian.com/content/groups/public/"
+  , "sbt-idea-repo" at "http://mpeltonen.github.com/maven/"
+  , "typesafe-maven" at "http://repo.typesafe.com/typesafe/releases/"
+  , "scct-github-repository" at "http://mtkopone.github.com/scct/maven-repo"
+  , Resolver.url("artifactory", url("http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases"))(Resolver
+    .ivyStylePatterns)
 )
 
-// re-initialize full resolvers so the resolvers are used after local but before default external (see http://harrah.github.com/xsbt/latest/sxr/Defaults.scala.html#319732)
-fullResolvers <<= (projectResolver, externalResolvers, sbtPlugin, sbtResolver) map { (pr,er,isPlugin,sr) =>
+// re-initialize full resolvers so the resolvers are used after local but before default external (see http://harrah
+// .github.com/xsbt/latest/sxr/Defaults.scala.html#319732)
+fullResolvers <<= (projectResolver, externalResolvers, sbtPlugin, sbtResolver) map { (pr, er, isPlugin, sr) =>
   val base = pr +: er
-  if(isPlugin) sr +: base else base
+  if (isPlugin) sr +: base else base
 }
 
 // Use the Play sbt plugin for Play projects

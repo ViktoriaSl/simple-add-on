@@ -14,13 +14,13 @@ object Poller extends Controller with ViewerIssueValue with ActionJwtValidator w
   def index() = Action { implicit request =>
     jwtValidated { implicit token: Token =>
       val hostId = token.acHost.key.value
-      ( for {
+      (for {
         resourceId <- request.getQueryString("issue_key")
       } yield {
         getIssue(resourceId)
         //@todo
-        Ok(views.html.validation(hostId, resourceId, "",VALIDATED_SUCCESSFULLY))
+        Ok(views.html.validation(hostId, resourceId, "", VALIDATED_SUCCESSFULLY))
       }) getOrElse BadRequest("Missing issue key")
-  }
+    }
   }
 }

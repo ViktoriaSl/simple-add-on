@@ -5,7 +5,7 @@
 
 
 # Home page
-GET     /                                                          controllers.Application.index()
-GET     /poller                                                    controllers.Poller.index()
-GET     /assets/*file                                              controllers.Assets.at(path="/public", file)
-->      /                                                          ac.Routes
+GET        /                    controllers.Application.index()
+GET        /poller              controllers.Poller.index()
+GET        /assets/*file        controllers.Assets.at(path="/public", file)
+->         /                    ac.Routes

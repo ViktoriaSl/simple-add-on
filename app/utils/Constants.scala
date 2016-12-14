@@ -1,7 +1,5 @@
 package utils
 
-import java.util.concurrent.TimeUnit
-
 object Constants {
   val VALIDATION_ERROR = "Error"
   val NOTHING_TO_VALIDATE = "No positive number field. Please set one for validation! "

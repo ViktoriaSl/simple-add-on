@@ -1,4 +1,4 @@
-
+import sbt.Keys._
 
 name := "field-validation-add-on"
 
@@ -19,9 +19,15 @@ val libDependencies = Seq(
   "com.typesafe.play.plugins" %% "play-plugins-redis" % "2.3.1"
 )
 
+val sharedTestDependencies = Seq(
+  "org.specs2" %% "specs2" % "2.3.13",
+  "org.scalatest" % "scalatest_2.11" % "3.0.1",
+  "org.mockito" % "mockito-all" % "1.10.19",
+  "com.typesafe.akka" %% "akka-testkit" % "2.3.9"
+)
+
 testOptions in Test += Tests.Argument("console", "junitxml")
 
-libraryDependencies ++= libDependencies ++ (sharedTestDependencies map (_ % "test"))
 
 resolvers ++= Seq(
   Resolver.defaultLocal,
@@ -35,12 +41,5 @@ resolvers ++= Seq(
   Resolver.mavenLocal
 )
 
-initialCommands in console := "import scalaz._, Scalaz._"
+libraryDependencies ++= libDependencies ++ (sharedTestDependencies map (_ % "test"))
 
-net.virtualvoid.sbt.graph.Plugin.graphSettings
-val sharedTestDependencies = Seq(
-  "org.specs2" %% "specs2" % "2.3.13",
-  "org.scalatest" % "scalatest_2.11" % "3.0.1",
-  "org.mockito" % "mockito-all" % "1.10.19",
-  "com.typesafe.akka" %% "akka-testkit" % "2.3.9"
-)

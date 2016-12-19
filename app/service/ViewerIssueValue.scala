@@ -7,13 +7,13 @@ import com.atlassian.connect.playscala.auth.jwt.JwtSignedAcHostWS
 import com.atlassian.connect.playscala.util.AcHostWS
 import play.Logger
 import utils.Constants.{VALIDATED_FAILURE, VALIDATED_SUCCESSFULLY, VALIDATION_ERROR}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 trait ViewerIssueValue extends JwtSignedAcHostWS {
-  private def parseField(json: String): Int = {
+  private def parsePositiveField(json: String): Int = {
     //@todo get value from json
     1
   }
+  
   protected def validatePositiveField(num: Int): String = if (num >= 0) VALIDATED_SUCCESSFULLY else VALIDATED_FAILURE
   
   def getIssue(issueId: String)(implicit token: Token): Future[String] = {
@@ -23,16 +23,15 @@ trait ViewerIssueValue extends JwtSignedAcHostWS {
       response.status match {
         case play.api.http.Status.OK =>
           Logger.info(s"200 OK from JIRA: ${response.body}")
-          val field = parseField(response.body)
+          val field = parsePositiveField(response.body)
           validatePositiveField(field)
         case _ =>
           val msg = s"Error response from JIRA. Status code: ${response.status}. Status text: ${response.statusText}." +
-          s" Body: ${response.body}"
+            s" Body: ${response.body}"
           Logger.info(msg)
           VALIDATION_ERROR
       }
     }
   }
-  
   
 }
